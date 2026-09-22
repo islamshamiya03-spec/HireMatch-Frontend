@@ -40,13 +40,30 @@ const jobs = [
 ]
 
 function JobSeekerDashboard() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [availableJobs, setAvailableJobs] = useState(jobs)
+  const [searchTerm, setSearchTerm] = useState('')
   const [message, setMessage] = useState('')
 
-  const currentJob = jobs[currentIndex]
+  const normalizedSearchTerm = searchTerm.trim().toLowerCase()
+  const filteredJobs = availableJobs.filter((job) => {
+    const searchableText = [
+      job.title,
+      job.company,
+      job.location,
+      ...job.skills,
+    ]
+      .join(' ')
+      .toLowerCase()
 
-  const moveToNextJob = () => {
-    setCurrentIndex((prevIndex) => prevIndex + 1)
+    return searchableText.includes(normalizedSearchTerm)
+  })
+
+  const currentJob = filteredJobs[0]
+
+  const moveToNextJob = (jobId) => {
+    setAvailableJobs((currentJobs) =>
+      currentJobs.filter((job) => job.id !== jobId),
+    )
   }
 
   const handleLike = () => {
@@ -68,14 +85,14 @@ function JobSeekerDashboard() {
     }
 
     setMessage(`Liked ${currentJob.title} at ${currentJob.company}`)
-    moveToNextJob()
+    moveToNextJob(currentJob.id)
   }
 
   const handlePass = () => {
     if (!currentJob) return
 
     setMessage(`Passed ${currentJob.title}`)
-    moveToNextJob()
+    moveToNextJob(currentJob.id)
   }
 
   return (
@@ -127,6 +144,18 @@ function JobSeekerDashboard() {
           <p className="mt-2 text-slate-600">
             Browse jobs and swipe according to your interest.
           </p>
+
+          <label htmlFor="job-search" className="sr-only">
+            Search jobs
+          </label>
+          <input
+            id="job-search"
+            type="search"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder="Search jobs by title, company, location or skills..."
+            className="mt-6 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+          />
         </div>
 
         {message && (
@@ -153,9 +182,19 @@ function JobSeekerDashboard() {
             />
 
             <p className="mt-4 text-sm text-slate-500">
-              Job {currentIndex + 1} of {jobs.length}
+              {filteredJobs.length} job{filteredJobs.length === 1 ? '' : 's'}
+              {' '}available
             </p>
           </>
+        ) : searchTerm && availableJobs.length > 0 ? (
+          <div className="w-full max-w-2xl rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-lg">
+            <h2 className="text-2xl font-bold text-slate-900">
+              No jobs found for your search.
+            </h2>
+            <p className="mt-2 text-slate-600">
+              Try searching by title, company, location, or skills.
+            </p>
+          </div>
         ) : (
           <div className="w-full max-w-2xl rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-lg">
             <div className="text-5xl">✓</div>

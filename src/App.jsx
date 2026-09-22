@@ -1,16 +1,13 @@
 import { Navigate, Route, Routes } from 'react-router'
 import JobSeekerDashboard from './pages/JobSeekerDashboard'
 import JobSeekerProfile from './pages/JobSeekerProfile'
+import LandingPage from './pages/LandingPage'
 import Matches from './pages/Matches'
 
 function App() {
   return (
     <Routes>
-      {/* Default route */}
-      <Route
-        path="/"
-        element={<Navigate to="/job-seeker" replace />}
-      />
+      <Route path="/" element={<LandingPage />} />
 
       {/* Job Seeker routes */}
       <Route
