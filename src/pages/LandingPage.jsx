@@ -1,70 +1,44 @@
-import { Link } from 'react-router'
+import React from "react";
+import { useNavigate } from "react-router";
+export default function LandingPage() {
+  const navigate = useNavigate();
 
-function LandingPage() {
+  const handleGetStarted = () => {
+    navigate("/job-seeker");
+  };
+
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:py-16">
-      <div className="mx-auto max-w-5xl">
-        <section className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-xl shadow-blue-100/50">
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 px-6 py-12 text-white sm:px-12 sm:py-16">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
-              Student Project
-            </p>
-            <h1 className="mt-4 text-4xl font-bold sm:text-5xl">HireMatch</h1>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-blue-50">
-              A Tinder-like recruitment platform that helps job seekers and
-              employers discover the right opportunities through mutual
-              matching.
-            </p>
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center justify-center px-4 text-center">
+      <div className="max-w-3xl w-full bg-white shadow-md rounded-lg p-8">
+        <h1 className="text-4xl font-extrabold text-blue-700 mb-4">HireMatch</h1>
+        <p className="text-lg text-blue-900 mb-6 font-semibold">
+          AI-Powered Job Matching and Job Search Platform
+        </p>
 
-            <Link
-              to="/job-seeker"
-              className="mt-8 inline-block rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 shadow-sm transition hover:bg-blue-50"
-            >
-              Get Started
-            </Link>
-          </div>
-
-          <div className="grid gap-8 px-6 py-10 sm:px-12 md:grid-cols-2">
-            <div>
-              <h2 className="text-xl font-bold text-slate-900">About HireMatch</h2>
-              <p className="mt-3 leading-7 text-slate-600">
-                Job seekers can browse and show interest in jobs, while
-                employers can do the same for candidates. When both sides are
-                interested, they match, communicate, and can schedule an
-                interview.
-              </p>
-              <p className="mt-3 leading-7 text-slate-600">
-                The platform also considers skills, experience, salary
-                expectations, location, and job requirements to recommend
-                suitable matches.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-slate-50 p-6">
-              <h2 className="text-xl font-bold text-slate-900">Group Members</h2>
-              <ul className="mt-4 space-y-3 text-slate-700">
-                <li className="rounded-lg bg-white px-4 py-3 shadow-sm">
-                  Aryan Sinha Roy
-                </li>
-                <li className="rounded-lg bg-white px-4 py-3 shadow-sm">
-                  Shamiya Islam
-                </li>
-                <li className="rounded-lg bg-white px-4 py-3 shadow-sm">
-                  Eshita Naskar
-                </li>
-                <li className="rounded-lg bg-white px-4 py-3 shadow-sm">
-                  Soumyajit Kar
-                </li>
-                <li className="rounded-lg bg-white px-4 py-3 shadow-sm">
-                  Susmita Maiti
-                </li>
-              </ul>
-            </div>
-          </div>
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-blue-800 mb-2">Group Members</h2>
+          <ul className="list-disc list-inside text-blue-700 space-y-1">
+            <li>Aryan sinha Roy</li>
+            <li>Shamiya Islam</li>
+            <li>Eshita Naskar</li>
+            <li>Soumajit Kar</li>
+            <li>Susmita Maiti</li>
+          </ul>
         </section>
-      </div>
-    </main>
-  )
-}
 
-export default LandingPage
+        <p className="text-blue-700 mb-8 leading-relaxed">
+          HireMatch is a job-seeking platform that helps users discover relevant job
+          opportunities, search for jobs, and find jobs based on their profile and skills.
+        </p>
+
+        <button
+          onClick={handleGetStarted}
+          className="bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 text-white font-semibold py-3 px-6 rounded-md transition-colors sm:w-auto w-full"
+          aria-label="Get Started"
+        >
+          Get Started
+        </button>
+      </div>
+    </div>
+  );
+}
