@@ -1,18 +1,19 @@
-import { Navigate, Route, Routes } from 'react-router'
-import JobSeekerDashboard from './pages/JobSeekerDashboard'
-import JobSeekerProfile from './pages/JobSeekerProfile'
-import Matches from './pages/Matches'
+import React from "react";
+import { Navigate, Route, Routes } from "react-router";
 
-function App() {
+import LandingPage from "./pages/LandingPage";
+import JobSeekerDashboard from "./pages/job-seeker/JobSeekerDashboard";
+import JobSeekerProfile from "./pages/job-seeker/JobSeekerProfile";
+import ResumeBuilder from "./pages/job-seeker/ResumeBuilder";
+import JobSearch from "./pages/job-seeker/JobSearch";
+import MatchedJobs from "./pages/job-seeker/MatchedJobs";
+import Applications from "./pages/job-seeker/Applications";
+
+export default function App() {
   return (
     <Routes>
-      {/* Default route */}
-      <Route
-        path="/"
-        element={<Navigate to="/job-seeker" replace />}
-      />
+      <Route path="/" element={<LandingPage />} />
 
-      {/* Job Seeker routes */}
       <Route
         path="/job-seeker"
         element={<JobSeekerDashboard />}
@@ -24,17 +25,29 @@ function App() {
       />
 
       <Route
-        path="/job-seeker/matches"
-        element={<Matches />}
+        path="/job-seeker/resume"
+        element={<ResumeBuilder />}
       />
 
-      {/* Unknown route */}
+      <Route
+        path="/job-seeker/jobs"
+        element={<JobSearch />}
+      />
+
+      <Route
+        path="/job-seeker/matched-jobs"
+        element={<MatchedJobs />}
+      />
+
+      <Route
+        path="/job-seeker/applications"
+        element={<Applications />}
+      />
+
       <Route
         path="*"
-        element={<Navigate to="/job-seeker" replace />}
+        element={<Navigate to="/" replace />}
       />
     </Routes>
-  )
+  );
 }
-
-export default App
